@@ -110,13 +110,13 @@ export function PrimaryFeatures() {
                               : 'text-blue-100 hover:text-white lg:text-white',
                           )}
                         >
-                          <span className="absolute inset-0 rounded-full lg:rounded-l-xl lg:rounded-r-none" />
+                          <span className="absolute inset-0 rounded-full text-xs lg:rounded-l-xl lg:rounded-r-none" />
                           {feature.title}
                         </Tab>
                       </h3>
                       <p
                         className={clsx(
-                          'mt-2 hidden text-sm lg:block',
+                          'mt-2 hidden text-center text-sm lg:block',
                           selectedIndex === featureIndex
                             ? 'text-white'
                             : 'text-blue-100 group-hover:text-white',

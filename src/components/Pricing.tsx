@@ -102,7 +102,7 @@ function Plan({
         href={href}
         variant={featured ? 'solid' : 'outline'}
         color="white"
-        className="mt-8"
+        className={featured ? 'mt-8' : 'mt-8 hover:bg-blue-600'}
         aria-label={`Get started with the ${name} plan for ${price}`}
       >
         Get started
@@ -119,7 +119,7 @@ export function Pricing() {
       className="bg-slate-900 py-20 sm:py-32"
     >
       <Container>
-        <div className="md:text-center">
+        <div className="text-center">
           <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">
             <span className="relative whitespace-nowrap">
               <SwirlyDoodle className="absolute left-0 top-1/2 h-[1em] w-full fill-blue-400" />
@@ -131,13 +131,17 @@ export function Pricing() {
             See which of our service options works best for you.
           </p>
         </div>
-        <div className="-mx-4 mt-16 grid max-w-2xl grid-cols-1 gap-y-10 sm:mx-auto lg:-mx-8 lg:max-w-none lg:grid-cols-3 xl:mx-0 xl:gap-x-8">
+        <div className="-mx-4 mt-16 grid max-w-2xl grid-cols-1 gap-y-10 text-center sm:mx-auto lg:-mx-8 lg:max-w-none lg:grid-cols-3 xl:mx-0 xl:gap-x-8">
           <Plan
-            name="Individual"
-            price="$0.25 / card"
-            description="Good for just pricing OR identifying."
+            name="Standard"
+            price="$0.50 / card"
+            description="Our classic identification and pricing service."
             href="/register"
-            features={['Self identify or Self price', 'Receive CSV for upload']}
+            features={[
+              'Identification',
+              'Pricing',
+              'Receive CSV file for upload',
+            ]}
           />
           <Plan
             featured
@@ -153,16 +157,13 @@ export function Pricing() {
               'Receive CSV file for upload',
             ]}
           />
+
           <Plan
-            name="Standard"
-            price="$0.50 / card"
-            description="Our classic identification and pricing service."
+            name="Individual"
+            price="$0.25 / card"
+            description="Good for just pricing OR identifying."
             href="/register"
-            features={[
-              'Identification',
-              'Pricing',
-              'Receive CSV file for upload',
-            ]}
+            features={['Self identify or Self price', 'Receive CSV for upload']}
           />
         </div>
       </Container>
