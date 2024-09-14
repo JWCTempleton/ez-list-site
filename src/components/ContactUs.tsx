@@ -4,32 +4,54 @@ import {
   EnvelopeIcon,
   PhoneIcon,
 } from '@heroicons/react/24/outline'
-import 'dotenv/config'
-
-require('dotenv').config()
+import { useState } from 'react'
 
 export default function ContactUs() {
+  const [result, setResult] = useState('')
+
   async function handleSubmit(event) {
     event.preventDefault()
+    setResult('Sending....')
+
+    const formData = new FormData(event.target)
+
+    formData.append('access_key', `${process.env.WEB3_ACCESS_KEY}`)
+
     const response = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        access_key: process.env.WEB3_ACCESS_KEY,
-        name: event.target.name.value,
-        email: event.target.email.value,
-        phoneNumber: event.target.phoneNumber.value,
-        message: event.target.message.value,
-      }),
+      body: formData,
     })
-    const result = await response.json()
-    if (result.success) {
-      console.log(result)
+
+    const data = await response.json()
+
+    if (data.success) {
+      setResult('Form Submitted Successfully')
+      event.target.reset()
+    } else {
+      console.log('Error', data)
+      setResult(data.message)
     }
   }
+
+  // const response = await fetch('https://api.web3forms.com/submit', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     Accept: 'application/json',
+  //   },
+  //   body: JSON.stringify({
+  //     access_key: process.env.WEB3_ACCESS_KEY,
+  //     name: event.target.name.value,
+  //     email: event.target.email.value,
+  //     phoneNumber: event.target.phoneNumber.value,
+  //     message: event.target.message.value,
+  //   }),
+  // })
+  // const result = await response.json()
+  // if (result.success) {
+  //   console.log(result)
+  // }
+  //}
   return (
     <div id="contact-us" className="relative isolate bg-gray-900">
       <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
@@ -238,6 +260,7 @@ export default function ContactUs() {
             </div>
           </div>
         </form>
+        <span>{result}</span>
       </div>
     </div>
   )
